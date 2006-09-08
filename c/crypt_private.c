@@ -4,7 +4,7 @@
  * and thus to confirm that these password hashes are indeed calculated as
  * intended.
  *
- * Other uses of this code are discouraged.  There're much better password
+ * Other uses of this code are discouraged.  There are much better password
  * hashing algorithms available to C programmers; one of those is bcrypt:
  *
  *	http://www.openwall.com/crypt/
