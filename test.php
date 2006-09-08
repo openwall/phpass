@@ -31,4 +31,12 @@ print $hash . "\n";
 print $t_hasher->CheckPassword($pw1, $hash) . "\n"; # prints 1
 print $t_hasher->CheckPassword($pw2, $hash) . "\n"; # prints 0 or nothing
 
+# A correct hash for "test12345".
+# Please note the use of single quotes to ensure that the dollar signs
+# will be interpreted literally.
+$hash = '$P$9IQRaTwmfeRo7ud9Fh4E2PdI0S3r.L0';
+
+print $t_hasher->CheckPassword($pw1, $hash) . "\n"; # prints 1
+print $t_hasher->CheckPassword($pw2, $hash) . "\n"; # prints 0 or nothing
+
 ?>
