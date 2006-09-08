@@ -40,7 +40,7 @@ class PasswordHash {
 
 		$this->portable_hashes = $portable_hashes;
 
-		$random_state = microtime() . getmypid();
+		$this->random_state = microtime() . getmypid();
 	}
 
 	function get_random_bytes($count)
