@@ -2,7 +2,7 @@
 #
 # Portable PHP password hashing framework.
 #
-# Version 0.0 / genuine.
+# Version 0.1 / genuine.
 #
 # Written by Solar Designer <solar at openwall.com> in 2004,2005 and placed in
 # the public domain.
