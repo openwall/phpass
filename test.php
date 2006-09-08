@@ -8,6 +8,8 @@
 
 require "PasswordHash.php";
 
+header("Content-type: text/plain");
+
 $ok = 0;
 
 # Try to use stronger but system-specific hashes, with a possible fallback to
