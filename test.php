@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # This is a test program for the portable PHP password hashing framework.
 #
