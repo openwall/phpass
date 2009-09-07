@@ -2,7 +2,7 @@
 #
 # Portable PHP password hashing framework.
 #
-# Version 0.1 / genuine.
+# Version 0.2 / genuine.
 #
 # Written by Solar Designer <solar at openwall.com> in 2004-2006 and placed in
 # the public domain.
@@ -46,7 +46,8 @@ class PasswordHash {
 	function get_random_bytes($count)
 	{
 		$output = '';
-		if (($fh = @fopen('/dev/urandom', 'rb'))) {
+		if (is_readable('/dev/urandom') &&
+		    ($fh = @fopen('/dev/urandom', 'rb'))) {
 			$output = fread($fh, $count);
 			fclose($fh);
 		}
