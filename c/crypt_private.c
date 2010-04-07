@@ -49,7 +49,7 @@ static void encode64(char *dst, char *src, int count)
 
 char *crypt_private(char *password, char *setting)
 {
-	static char output[32];
+	static char output[35];
 	MD5_CTX ctx;
 	char hash[MD5_DIGEST_LENGTH];
 	char *p, *salt;
