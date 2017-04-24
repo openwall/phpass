@@ -10,7 +10,7 @@
  *	http://www.openwall.com/crypt/
  *
  * Written by Solar Designer <solar at openwall.com> in 2005 and placed in
- * the public domain.
+ * the public domain.  Revised in subsequent years, still public domain.
  *
  * There's absolutely no warranty.
  */
@@ -25,7 +25,7 @@
 static char *itoa64 =
 	"./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-static void encode64(char *dst, char *src, int count)
+static void encode64(char *dst, unsigned char *src, int count)
 {
 	int i, value;
 
@@ -45,13 +45,15 @@ static void encode64(char *dst, char *src, int count)
 			break;
 		*dst++ = itoa64[(value >> 18) & 0x3f];
 	} while (i < count);
+
+	*dst = 0;
 }
 
 char *crypt_private(char *password, char *setting)
 {
 	static char output[35];
 	MD5_CTX ctx;
-	char hash[MD5_DIGEST_LENGTH];
+	unsigned char hash[MD5_DIGEST_LENGTH];
 	char *p, *salt;
 	int count_log2, length, count;
 
