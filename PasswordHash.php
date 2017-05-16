@@ -2,7 +2,7 @@
 #
 # Portable PHP password hashing framework.
 #
-# Version 0.5 / genuine.
+# Version 0.5.1 / genuine.
 #
 # Written by Solar Designer <solar at openwall.com> in 2004-2006 and placed in
 # the public domain.  Revised in subsequent years, still public domain.
@@ -98,8 +98,8 @@ class PasswordHash {
 	function gensalt_private($input)
 	{
 		$output = '$P$';
-		$output .= $this->itoa64[min($this->iteration_count_log2 +
-			((PHP_VERSION >= '5') ? 5 : 3), 30)];
+		$output .= $this->itoa64[min($this->iteration_count_log2 + 5,
+		    30)];
 		$output .= $this->encode64($input, 6);
 
 		return $output;
