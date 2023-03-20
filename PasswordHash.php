@@ -2,7 +2,7 @@
 #
 # Portable PHP password hashing framework.
 #
-# Version 0.5.1 / genuine.
+# Version 0.5.2 / genuine.
 #
 # Written by Solar Designer <solar at openwall.com> in 2004-2006 and placed in
 # the public domain.  Revised in subsequent years, still public domain.
@@ -156,7 +156,7 @@ class PasswordHash {
 		$itoa64 = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 		$output = '$2a$';
-		$output .= chr(ord('0') + $this->iteration_count_log2 / 10);
+		$output .= chr((int)(ord('0') + $this->iteration_count_log2 / 10));
 		$output .= chr(ord('0') + $this->iteration_count_log2 % 10);
 		$output .= '$';
 
