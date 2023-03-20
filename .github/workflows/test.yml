@@ -36,4 +36,4 @@ jobs:
           coverage: none
 
       - name: Run tests
-        run: php ./test.php
+        run: php ./tests/test.php

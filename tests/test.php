@@ -6,7 +6,7 @@
 # See PasswordHash.php for more information.
 #
 
-require dirname(__FILE__) . '/src/PasswordHash.php';
+require dirname(__FILE__) . '/../src/PasswordHash.php';
 
 header('Content-type: text/plain');
 
