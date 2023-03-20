@@ -71,5 +71,3 @@ if ($ok === 6) {
 	print "Some tests have FAILED\n";
 	exit(1);
 }
-
-?>
