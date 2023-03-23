@@ -37,3 +37,50 @@ jobs:
 
       - name: Run tests
         run: php ./tests/test.php
+
+  unittest:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: ['5.3', '5.4', '5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3']
+
+    continue-on-error: ${{ matrix.php == '8.3' }}
+
+    name: "Unit Test: PHP ${{ matrix.php }}"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          ini-values: zend.assertions=1, error_reporting=-1, display_errors=On
+          coverage: xdebug
+
+      # Install dependencies and handle caching in one go.
+      # @link https://github.com/marketplace/actions/install-composer-dependencies
+      - name: Install Composer dependencies - normal
+        if: ${{ matrix.php != '8.3' }}
+        uses: "ramsey/composer-install@v2"
+        with:
+          # Bust the cache at least once a month - output format: YYYY-MM.
+          custom-cache-suffix: $(date -u "+%Y-%m")
+
+      - name: Install Composer dependencies - ignore PHP restrictions
+        if: ${{ matrix.php == '8.3' }}
+        uses: "ramsey/composer-install@v2"
+        with:
+          composer-options: --ignore-platform-req=php+
+          # Bust the cache at least once a month - output format: YYYY-MM.
+          custom-cache-suffix: $(date -u "+%Y-%m")
+
+      # PHPUnit 10 will fail a test run when the "old" configuration format is used.
+      # Luckily, there is a build-in migration tool since PHPUnit 9.3.
+      - name: Migrate PHPUnit configuration for PHPUnit 9.3+
+        run: vendor/bin/phpunit --migrate-configuration || echo '--migrate-configuration not available'
+
+      - name: Run the unit tests
+        run: vendor/bin/phpunit
