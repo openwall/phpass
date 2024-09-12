@@ -16,7 +16,7 @@ final class PasswordHashEndToEndTest extends TestCase {
 	 * Test using the stronger but system-specific hashes, with a possible fallback to
 	 * the weaker portable hashes.
 	 *
-	 * @dataProvider dataSets
+	 * @dataProvider dataSetsSuccess
 	 *
 	 * @param string $input The text to hash and compare with.
 	 *
@@ -33,7 +33,7 @@ final class PasswordHashEndToEndTest extends TestCase {
 	 * Test using the stronger but system-specific hashes, with a possible fallback to
 	 * the weaker portable hashes.
 	 *
-	 * @dataProvider dataSets
+	 * @dataProvider dataSetsFail
 	 *
 	 * @param string $input   The text to hash.
 	 * @param string $compare The text to compare the hash with.
@@ -50,7 +50,7 @@ final class PasswordHashEndToEndTest extends TestCase {
 	/**
 	 * Test using the weaker portable hashes.
 	 *
-	 * @dataProvider dataSets
+	 * @dataProvider dataSetsSuccess
 	 *
 	 * @param string $input The text to hash and compare with.
 	 *
@@ -67,7 +67,7 @@ final class PasswordHashEndToEndTest extends TestCase {
 	/**
 	 * Test using the weaker portable hashes.
 	 *
-	 * @dataProvider dataSets
+	 * @dataProvider dataSetsFail
 	 *
 	 * @param string $input   The text to hash.
 	 * @param string $compare The text to compare the hash with.
@@ -87,6 +87,30 @@ final class PasswordHashEndToEndTest extends TestCase {
 	 *
 	 * @return array
 	 */
+	public static function dataSetsSuccess() {
+		$data = self::dataSets();
+		foreach ($data as $key => $value) {
+			// The `compare` parameter is only needed for the "fail" tests.
+			unset($data[$key]['compare']);
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Data provider.
+	 *
+	 * @return array
+	 */
+	public static function dataSetsFail() {
+		return self::dataSets();
+	}
+
+	/**
+	 * Data provider helper.
+	 *
+	 * @return array
+	 */
 	public static function dataSets() {
 		return array(
 			'initial test case' => array(
@@ -99,7 +123,7 @@ final class PasswordHashEndToEndTest extends TestCase {
 	/**
 	 * Test the generated hash is correctly calculated using the weaker portable hashes.
 	 *
-	 * @dataProvider dataGeneratedHash
+	 * @dataProvider dataGeneratedHashSuccess
 	 *
 	 * @param string $expected_hash The expected password hash output.
 	 * @param string $input         The text to hash and compare with.
@@ -113,9 +137,24 @@ final class PasswordHashEndToEndTest extends TestCase {
 	}
 
 	/**
+	 * Data provider.
+	 *
+	 * @return array
+	 */
+	public static function dataGeneratedHashSuccess() {
+		$data = self::dataGeneratedHash();
+		foreach ($data as $key => $value) {
+			// The `compare` parameter is only needed for the "fail" tests.
+			unset($data[$key]['compare']);
+		}
+
+		return $data;
+	}
+
+	/**
 	 * Test the generated hash is correctly calculated using the weaker portable hashes.
 	 *
-	 * @dataProvider dataGeneratedHash
+	 * @dataProvider dataGeneratedHashFail
 	 *
 	 * @param string $expected_hash The expected password hash output.
 	 * @param string $input         Unused.
@@ -131,6 +170,15 @@ final class PasswordHashEndToEndTest extends TestCase {
 
 	/**
 	 * Data provider.
+	 *
+	 * @return array
+	 */
+	public static function dataGeneratedHashFail() {
+		return self::dataGeneratedHash();
+	}
+
+	/**
+	 * Data provider helper.
 	 *
 	 * @return array
 	 */
